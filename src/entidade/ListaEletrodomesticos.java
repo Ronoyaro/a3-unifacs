@@ -3,11 +3,11 @@ package entidade;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListaEletrodosmeticos {
+public class ListaEletrodomesticos {
 
     private List<Eletrodomestico> eletrodomesticos = new ArrayList<>();
 
-    public ListaEletrodosmeticos() {
+    public ListaEletrodomesticos() {
         this.eletrodomesticos.add(new Eletrodomestico("TV", 3999.90, 10, "Smart TV 4K", "Preto-Fosco", "LG"));
         this.eletrodomesticos.add(new Eletrodomestico("Máquina de Lavar", 1999.90, 7, "Lava e Seca", "Branca", "Brastemp"));
         this.eletrodomesticos.add(new Eletrodomestico("Ferro de Passar", 299.90, 8, "A vapor", "Preto", "Black Decker"));
@@ -21,7 +21,7 @@ public class ListaEletrodosmeticos {
         return eletrodomesticos;
     }
 
-    public void mostraLista() {
+    public void produtosOrdenadosPorPreco() {
         eletrodomesticos.sort((e1, e2) -> e1.getPreco().compareTo(e2.getPreco()));
         System.out.println("----------------------");
         for (Eletrodomestico eletrodomestico : eletrodomesticos) {
@@ -33,8 +33,8 @@ public class ListaEletrodosmeticos {
         }
     }
 
-    public void atualizaLista(Eletrodomestico eletrodomestico) {
-        eletrodomesticos.add(eletrodomestico);
+    public void atualizaListaDeProdutos(Eletrodomestico eletrodomestico) {
+        this.eletrodomesticos.add(eletrodomestico);
     }
 
 
@@ -58,9 +58,9 @@ public class ListaEletrodosmeticos {
         }
     }
 
-    public void removeProduto(String produto, String confirmacao) {
+    public void removeProduto(String nomeProduto, String confirmacao) {
         if (confirmacao.equalsIgnoreCase("s")) {
-            this.eletrodomesticos.removeIf(p -> p.getNome().equalsIgnoreCase(produto));
+            this.eletrodomesticos.removeIf(p -> p.getNome().equalsIgnoreCase(nomeProduto));
             System.out.println("Produto removido com sucesso!");
         } else if (confirmacao.equalsIgnoreCase("n")) {
             System.out.println("Retornando...");

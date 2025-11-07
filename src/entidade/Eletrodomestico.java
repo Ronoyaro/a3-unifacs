@@ -29,7 +29,7 @@ public class Eletrodomestico extends Produto {
     @Override
     public String toString() {
         return super.toString().replace("]", ",") + " cor='" + cor + '\''
-                + ", dimensão='" + marca + '\'' + "]";
+                + ", marca='" + marca + '\'' + "]";
 
     }
 }
