@@ -2,34 +2,34 @@ package entidade;
 
 public class Eletrodomestico extends Produto {
     private String cor;
-    private String dimensao;
+    private String marca;
 
-    public Eletrodomestico(String nome, Double preco, Integer quantidade, String categoria, String cor, String dimensao) {
+    public Eletrodomestico(String nome, Double preco, Integer quantidade, String categoria, String cor, String marca) {
         super(nome, preco, quantidade, categoria);
         this.cor = cor;
-        this.dimensao = dimensao;
+        this.marca = marca;
     }
 
     public String getCor() {
-        return cor;
+        return this.cor;
     }
 
     public void setCor(String cor) {
         this.cor = cor;
     }
 
-    public String getDimensao() {
-        return dimensao;
+    public String getMarca() {
+        return this.marca;
     }
 
-    public void setDimensao(String dimensao) {
-        this.dimensao = dimensao;
+    public void setMarca(String marca) {
+        this.marca = marca;
     }
 
     @Override
     public String toString() {
         return super.toString().replace("]", ",") + " cor='" + cor + '\''
-                + ", dimensão='" + dimensao + '\'' + "]";
+                + ", dimensão='" + marca + '\'' + "]";
 
     }
 }

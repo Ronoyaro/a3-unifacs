@@ -8,13 +8,13 @@ public class ListaEletrodosmeticos {
     private List<Eletrodomestico> eletrodomesticos = new ArrayList<>();
 
     public ListaEletrodosmeticos() {
-        this.eletrodomesticos.add(new Eletrodomestico("Televisão", 3999.90, 10, "Smart TV 4K", "Preto-Fosco", "169x111"));
-        this.eletrodomesticos.add(new Eletrodomestico("Máquina de Lavar", 1999.90, 7, "Lava e Seca", "Branca", "135x90"));
-        this.eletrodomesticos.add(new Eletrodomestico("Ferro de Passar", 299.90, 8, "Black Decker", "Preto", "60x25"));
-        this.eletrodomesticos.add(new Eletrodomestico("Geladeira", 3990.90, 15, "Duplex", "Branco", "180x90"));
-        this.eletrodomesticos.add(new Eletrodomestico("Aspirador de Pó", 399.90, 20, "Vertical", "Vermelho", "130x85"));
-        this.eletrodomesticos.add(new Eletrodomestico("Fogão", 1799.90, 25, "CockTop", "BlackPiano", "50x90"));
-        this.eletrodomesticos.add(new Eletrodomestico("Batedeira", 1799.90, 25, "CockTop", "BlackPiano", "40x40"));
+        this.eletrodomesticos.add(new Eletrodomestico("TV", 3999.90, 10, "Smart TV 4K", "Preto-Fosco", "LG"));
+        this.eletrodomesticos.add(new Eletrodomestico("Máquina de Lavar", 1999.90, 7, "Lava e Seca", "Branca", "Brastemp"));
+        this.eletrodomesticos.add(new Eletrodomestico("Ferro de Passar", 299.90, 8, "A vapor", "Preto", "Black Decker"));
+        this.eletrodomesticos.add(new Eletrodomestico("Geladeira", 3990.90, 15, "Duplex", "Branco", "Electrolux"));
+        this.eletrodomesticos.add(new Eletrodomestico("Aspirador de Pó", 399.90, 20, "Vertical", "Vermelho", "Mondial"));
+        this.eletrodomesticos.add(new Eletrodomestico("Fogão", 1799.90, 25, "5 Bocas", "Black-Piano", "Itatiaia"));
+        this.eletrodomesticos.add(new Eletrodomestico("Batedeira", 1799.90, 25, "Manual", "Prateada", "Philco"));
     }
 
     public List<Eletrodomestico> getEletrodomesticos() {
@@ -23,15 +23,13 @@ public class ListaEletrodosmeticos {
 
     public void mostraLista() {
         eletrodomesticos.sort((e1, e2) -> e1.getPreco().compareTo(e2.getPreco()));
+        System.out.println("----------------------");
         for (Eletrodomestico eletrodomestico : eletrodomesticos) {
-            System.out.println(eletrodomestico);
-        }
-    }
-
-    public void formataLista() {
-        System.out.println("Produtos encontrados: ");
-        for (Eletrodomestico eletrodomestico : eletrodomesticos) {
-            System.out.println(eletrodomestico.getNome());
+            System.out.println("Produto: " + eletrodomestico.getNome());
+            System.out.println("Marca: " + eletrodomestico.getMarca());
+            System.out.println("Preço: R$ " + eletrodomestico.getPreco());
+            System.out.println("Quantidade: " + eletrodomestico.getQuantidade());
+            System.out.println("----------------------");
         }
     }
 
@@ -39,30 +37,33 @@ public class ListaEletrodosmeticos {
         eletrodomesticos.add(eletrodomestico);
     }
 
-    public Eletrodomestico buscaPorNome(String produto) {
-        return this.eletrodomesticos.stream()
+
+    public Eletrodomestico buscaProduto(String produto) {
+        Eletrodomestico produtoFiltrado = this.eletrodomesticos.stream()
                 .filter(p -> p.getNome().equalsIgnoreCase(produto))
                 .findFirst()
                 .orElse(null);
-    }
 
-    public void buscaProduto(String produto) {
-        Eletrodomestico produtoFiltrado = buscaPorNome(produto);
         if (produtoFiltrado != null) {
-            System.out.println(produtoFiltrado);
+            System.out.println("---Produto encontrado---");
+            System.out.println("Produto: " + produtoFiltrado.getNome());
+            System.out.println("Marca: " + produtoFiltrado.getMarca());
+            System.out.println("Preço: R$ " + produtoFiltrado.getPreco());
+            System.out.println("Quantidade: " + produtoFiltrado.getQuantidade());
+            System.out.println("Categoria: " + produtoFiltrado.getCategoria());
+            return produtoFiltrado;
         } else {
             System.out.println("Produto não encontrado!");
+            return null;
         }
     }
 
-    public void removeProduto(String produto, String sOrN) {
-        if (sOrN.equalsIgnoreCase("s")) {
+    public void removeProduto(String produto, String confirmacao) {
+        if (confirmacao.equalsIgnoreCase("s")) {
             this.eletrodomesticos.removeIf(p -> p.getNome().equalsIgnoreCase(produto));
             System.out.println("Produto removido com sucesso!");
-        } else if (sOrN.equalsIgnoreCase("n")) {
+        } else if (confirmacao.equalsIgnoreCase("n")) {
             System.out.println("Retornando...");
-        } else {
-            System.out.println("Produto não encontrado!");
         }
     }
 }

@@ -11,17 +11,17 @@ public class Program {
         boolean finalizar = false;
         while (!finalizar) {
             System.out.println("Escolha uma das opções a seguir:");
-            System.out.println("1 - Cadastrar um produto");
+            System.out.println("1 - Cadastrar produto");
             System.out.println("2 - Listar todos os produtos");
             System.out.println("3 - Buscar produto");
-            System.out.println("4 - Editar um produto");
-            System.out.println("5 - Remover um produto");
+            System.out.println("4 - Editar produto");
+            System.out.println("5 - Remover produto");
             System.out.println("6 - Sair");
-            int option = sc.nextInt();
+            int opcao = sc.nextInt();
             sc.nextLine();
-            String optionSOrN;
+            String confirmacao;
             String nomeProduto;
-            switch (option) {
+            switch (opcao) {
                 case 1:
                     System.out.println("Cadastrando produto....");
                     System.out.println("Informe o nome do produto:");
@@ -35,14 +35,14 @@ public class Program {
                     String categoria = sc.nextLine();
                     System.out.println("Informe a cor do produto:");
                     String cor = sc.nextLine();
-                    System.out.println("Informe as dimensões do produto: (exemplo: 70x90):");
-                    String dimensao = sc.nextLine();
-                    Eletrodomestico novoEletrodomestico = new Eletrodomestico(nome, preco, quantidade, categoria, cor, dimensao);
+                    System.out.println("Informe a marca do produto");
+                    String marca = sc.nextLine();
+                    Eletrodomestico novoEletrodomestico = new Eletrodomestico(nome, preco, quantidade, categoria, cor, marca);
                     System.out.println("Eletrodomestico " + novoEletrodomestico.getNome() + " cadastrado com sucesso!");
                     eletrodosmeticos.atualizaLista(novoEletrodomestico);
                     System.out.println("Deseja voltar para o Menu? S/N");
-                    optionSOrN = sc.nextLine();
-                    if (optionSOrN.equalsIgnoreCase("N")) {
+                    confirmacao = sc.nextLine();
+                    if (confirmacao.equalsIgnoreCase("N")) {
                         finalizar = true;
                     }
                     break;
@@ -51,8 +51,8 @@ public class Program {
                     eletrodosmeticos.mostraLista();
                     System.out.println();
                     System.out.println("Voltar para o Menu? S/N");
-                    optionSOrN = sc.nextLine();
-                    if (optionSOrN.equalsIgnoreCase("N")) {
+                    confirmacao = sc.nextLine();
+                    if (confirmacao.equalsIgnoreCase("N")) {
                         finalizar = true;
                     }
                     break;
@@ -61,21 +61,19 @@ public class Program {
                     nomeProduto = sc.nextLine();
                     eletrodosmeticos.buscaProduto(nomeProduto);
                     System.out.println("Voltar para o Menu? S/N");
-                    optionSOrN = sc.nextLine();
-                    if (optionSOrN.equalsIgnoreCase("N")) {
+                    confirmacao = sc.nextLine();
+                    if (confirmacao.equalsIgnoreCase("N")) {
                         finalizar = true;
                     }
                     break;
                 case 4:
-                    eletrodosmeticos.formataLista();
-                    System.out.println("Informe qual produto deseja editar:");
+                    System.out.println("Informe o nome do produto que deseja editar:");
                     nomeProduto = sc.nextLine();
-                    Eletrodomestico eletrodomesticoFiltrado = eletrodosmeticos.buscaPorNome(nomeProduto);
+                    Eletrodomestico eletrodomesticoFiltrado = eletrodosmeticos.buscaProduto(nomeProduto);
                     if (eletrodomesticoFiltrado == null) {
-                        System.out.println("Produto não encontrado");
                         System.out.println("Voltar para o Menu? S/N");
-                        optionSOrN = sc.nextLine();
-                        if (optionSOrN.equalsIgnoreCase("N")) {
+                        confirmacao = sc.nextLine();
+                        if (confirmacao.equalsIgnoreCase("N")) {
                             finalizar = true;
                         }
                     } else {
@@ -99,23 +97,22 @@ public class Program {
                     }
                     break;
                 case 5:
-                    eletrodosmeticos.formataLista();
-                    System.out.println("Informe qual produto deseja remover:");
+                    System.out.println("Informe o nome do produto deseja remover:");
                     nomeProduto = sc.nextLine();
-                    if (eletrodosmeticos.buscaPorNome(nomeProduto) == null) {
-                        System.out.println("Produto não encontrado");
+                    eletrodomesticoFiltrado = eletrodosmeticos.buscaProduto(nomeProduto);
+                    if (eletrodomesticoFiltrado == null) {
                         System.out.println("Voltar para o Menu? S/N");
-                        optionSOrN = sc.nextLine();
-                        if (optionSOrN.equalsIgnoreCase("N")) {
+                        confirmacao = sc.nextLine();
+                        if (confirmacao.equalsIgnoreCase("N")) {
                             finalizar = true;
                         }
                     } else {
                         System.out.println("Tem certeza que deseja remover: " + nomeProduto.toUpperCase() + "? S/N?");
-                        optionSOrN = sc.nextLine();
-                        eletrodosmeticos.removeProduto(nomeProduto, optionSOrN);
+                        confirmacao = sc.nextLine();
+                        eletrodosmeticos.removeProduto(nomeProduto, confirmacao);
                         System.out.println("Voltar para o Menu? S/N");
-                        optionSOrN = sc.nextLine();
-                        if (optionSOrN.equalsIgnoreCase("N")) {
+                        confirmacao = sc.nextLine();
+                        if (confirmacao.equalsIgnoreCase("N")) {
                             finalizar = true;
                         }
                     }

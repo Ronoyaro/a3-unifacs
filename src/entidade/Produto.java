@@ -32,10 +32,6 @@ public class Produto {
      this.preco = novoPreco;
     }
 
-    public Long getId() {
-        return id;
-    }
-
     public Integer getQuantidade() {
         return quantidade;
     }
