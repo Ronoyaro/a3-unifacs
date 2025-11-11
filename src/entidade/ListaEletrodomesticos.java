@@ -23,13 +23,9 @@ public class ListaEletrodomesticos {
 
     public void produtosOrdenadosPorPreco() {
         eletrodomesticos.sort((e1, e2) -> e1.getPreco().compareTo(e2.getPreco()));
-        System.out.println("----------------------");
-        for (Eletrodomestico eletrodomestico : eletrodomesticos) {
-            System.out.println("Produto: " + eletrodomestico.getNome());
-            System.out.println("Marca: " + eletrodomestico.getMarca());
-            System.out.println("Preço: R$ " + eletrodomestico.getPreco());
-            System.out.println("Quantidade: " + eletrodomestico.getQuantidade());
-            System.out.println("----------------------");
+        System.out.printf("%-10s %-15s %-10s %-10s%n", "Id", "Nome", "Preço", "Quantidade");
+        for(Eletrodomestico e: eletrodomesticos) {
+            System.out.printf("%-5d %-20s %-15.2f %-10d%n", e.getId(), e.getNome(), e.getPreco(), e.getQuantidade());
         }
     }
 

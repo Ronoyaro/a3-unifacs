@@ -24,12 +24,15 @@ public class Produto {
         this.nome = novoNome;
     }
 
+    public long getId() {
+        return id;
+    }
     public Double getPreco() {
         return preco;
     }
 
     public void setPreco(double novoPreco) {
-     this.preco = novoPreco;
+        this.preco = novoPreco;
     }
 
     public Integer getQuantidade() {

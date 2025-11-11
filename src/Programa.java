@@ -7,6 +7,10 @@ public class Programa {
 
     public static void main(String[] args) {
         ListaEletrodomesticos eletrodomesticos = new ListaEletrodomesticos();
+        String confirmacao;
+        String nomeProduto;
+        Eletrodomestico eletrodomestico;
+
         System.out.println("----CADASTRO DE PRODUTOS-----");
         Scanner sc = new Scanner(System.in);
         boolean finalizar = false;
@@ -20,8 +24,6 @@ public class Programa {
             System.out.println("6 - Sair");
             int opcao = sc.nextInt();
             sc.nextLine();
-            String confirmacao;
-            String nomeProduto;
             switch (opcao) {
                 case 1:
                     System.out.println("Cadastrando produto...");
@@ -70,7 +72,7 @@ public class Programa {
                 case 4:
                     System.out.println("Informe o nome do produto que deseja editar:");
                     nomeProduto = sc.nextLine();
-                    Eletrodomestico eletrodomestico = eletrodomesticos.buscaProduto(nomeProduto);
+                    eletrodomestico = eletrodomesticos.buscaProduto(nomeProduto);
                     if (eletrodomestico == null) {
                         System.out.println("Voltar para o Menu? S/N");
                         confirmacao = sc.nextLine();
