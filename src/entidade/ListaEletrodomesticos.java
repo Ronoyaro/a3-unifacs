@@ -2,6 +2,7 @@ package entidade;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class ListaEletrodomesticos {
 
@@ -24,7 +25,7 @@ public class ListaEletrodomesticos {
     public void produtosOrdenadosPorPreco() {
         eletrodomesticos.sort((e1, e2) -> e1.getPreco().compareTo(e2.getPreco()));
         System.out.printf("%-10s %-15s %-10s %-10s%n", "Id", "Nome", "Preço", "Quantidade");
-        for(Eletrodomestico e: eletrodomesticos) {
+        for (Eletrodomestico e : eletrodomesticos) {
             System.out.printf("%-5d %-20s %-15.2f %-10d%n", e.getId(), e.getNome(), e.getPreco(), e.getQuantidade());
         }
     }
@@ -33,33 +34,21 @@ public class ListaEletrodomesticos {
         this.eletrodomesticos.add(eletrodomestico);
     }
 
-
-    public Eletrodomestico buscaProduto(String produto) {
-        Eletrodomestico produtoFiltrado = this.eletrodomesticos.stream()
+    public Optional<Eletrodomestico> filtraProduto(String produto) {
+        Optional<Eletrodomestico> eletrodomesticoFiltrado = this.eletrodomesticos.stream()
                 .filter(p -> p.getNome().equalsIgnoreCase(produto))
-                .findFirst()
-                .orElse(null);
-
-        if (produtoFiltrado != null) {
+                .findFirst();
+        eletrodomesticoFiltrado.ifPresentOrElse((e -> {
             System.out.println("---Produto encontrado---");
-            System.out.println("Produto: " + produtoFiltrado.getNome());
-            System.out.println("Marca: " + produtoFiltrado.getMarca());
-            System.out.println("Preço: R$ " + produtoFiltrado.getPreco());
-            System.out.println("Quantidade: " + produtoFiltrado.getQuantidade());
-            System.out.println("Categoria: " + produtoFiltrado.getCategoria());
-            return produtoFiltrado;
-        } else {
-            System.out.println("Produto não encontrado!");
-            return null;
-        }
+            System.out.println("Produto: " + e.getNome());
+            System.out.println("Preço: " + e.getPreco());
+            System.out.println("Quantidade: " + e.getQuantidade());
+        }), () -> System.out.println("Não encontrado"));
+        return eletrodomesticoFiltrado;
     }
 
-    public void removeProduto(String nomeProduto, String confirmacao) {
-        if (confirmacao.equalsIgnoreCase("s")) {
-            this.eletrodomesticos.removeIf(p -> p.getNome().equalsIgnoreCase(nomeProduto));
-            System.out.println("Produto removido com sucesso!");
-        } else if (confirmacao.equalsIgnoreCase("n")) {
-            System.out.println("Retornando...");
-        }
+    public void removeProduto(Eletrodomestico nomeProduto) {
+        this.eletrodomesticos.remove(nomeProduto);
+        System.out.println("Produto removido com sucesso!");
     }
 }

@@ -1,18 +1,16 @@
 import entidade.Eletrodomestico;
 import entidade.ListaEletrodomesticos;
 
+import java.util.Optional;
 import java.util.Scanner;
 
 public class Programa {
-
+    static Scanner sc = new Scanner(System.in);
     public static void main(String[] args) {
         ListaEletrodomesticos eletrodomesticos = new ListaEletrodomesticos();
-        String confirmacao;
         String nomeProduto;
-        Eletrodomestico eletrodomestico;
-
+        Optional<Eletrodomestico> produtoFiltrado;
         System.out.println("----CADASTRO DE PRODUTOS-----");
-        Scanner sc = new Scanner(System.in);
         boolean finalizar = false;
         while (!finalizar) {
             System.out.println("Escolha uma das opções a seguir:");
@@ -43,9 +41,7 @@ public class Programa {
                     Eletrodomestico novoEletrodomestico = new Eletrodomestico(nome, preco, quantidade, categoria, cor, marca);
                     System.out.println("Eletrodomestico " + novoEletrodomestico.getNome() + " cadastrado com sucesso!");
                     eletrodomesticos.atualizaListaDeProdutos(novoEletrodomestico);
-                    System.out.println("Deseja voltar para o Menu? S/N");
-                    confirmacao = sc.nextLine();
-                    if (confirmacao.equalsIgnoreCase("N")) {
+                    if (!returnToMenu()) {
                         finalizar = true;
                     }
                     break;
@@ -53,73 +49,57 @@ public class Programa {
                     System.out.println("Listando todos os produtos...");
                     eletrodomesticos.produtosOrdenadosPorPreco();
                     System.out.println();
-                    System.out.println("Voltar para o Menu? S/N");
-                    confirmacao = sc.nextLine();
-                    if (confirmacao.equalsIgnoreCase("N")) {
+                    if (!returnToMenu()) {
                         finalizar = true;
                     }
                     break;
                 case 3:
                     System.out.println("Informe o nome do produto:");
                     nomeProduto = sc.nextLine();
-                    eletrodomesticos.buscaProduto(nomeProduto);
-                    System.out.println("Voltar para o Menu? S/N");
-                    confirmacao = sc.nextLine();
-                    if (confirmacao.equalsIgnoreCase("N")) {
+                    eletrodomesticos.filtraProduto(nomeProduto);
+                    if (!returnToMenu()) {
                         finalizar = true;
                     }
                     break;
                 case 4:
                     System.out.println("Informe o nome do produto que deseja editar:");
                     nomeProduto = sc.nextLine();
-                    eletrodomestico = eletrodomesticos.buscaProduto(nomeProduto);
-                    if (eletrodomestico == null) {
-                        System.out.println("Voltar para o Menu? S/N");
-                        confirmacao = sc.nextLine();
-                        if (confirmacao.equalsIgnoreCase("N")) {
-                            finalizar = true;
-                        }
-                    } else {
-                        System.out.println("1 - Alterar preço");
-                        System.out.println("2 - Alterar quantidade");
-                        int alteraDado = sc.nextInt();
+                    produtoFiltrado = eletrodomesticos.filtraProduto(nomeProduto);
+                    if (produtoFiltrado.isPresent()) {
+                        System.out.println("1 - Editar Preço");
+                        System.out.println("2 - Editar Quantidade");
+                        opcao = sc.nextInt();
                         sc.nextLine();
-                        switch (alteraDado) {
+                        switch (opcao) {
                             case 1:
-                                System.out.println("Informe o novo valor:");
-                                double alteraPreco = sc.nextDouble();
-                                eletrodomestico.setPreco(alteraPreco);
-                                System.out.println("Preço editado com sucesso!");
+                                System.out.println("Digite o valor");
+                                double novoPreco = sc.nextDouble();
+                                sc.nextLine();
+                                produtoFiltrado.get().setPreco(novoPreco);
                                 break;
                             case 2:
-                                System.out.println("Informe a nova quantidade:");
-                                alteraDado = sc.nextInt();
+                                System.out.println("Digite a quantidade:");
+                                int novaQuantidade = sc.nextInt();
                                 sc.nextLine();
-                                eletrodomestico.setQuantidade(alteraDado);
-                                System.out.println("Quantidade editada com sucesso!");
+                                produtoFiltrado.get().setQuantidade(novaQuantidade);
                                 break;
                         }
+                    }
+                    if (!returnToMenu()) {
+                        finalizar = true;
                     }
                     break;
                 case 5:
                     System.out.println("Informe o nome do produto que deseja remover:");
                     nomeProduto = sc.nextLine();
-                    eletrodomestico = eletrodomesticos.buscaProduto(nomeProduto);
-                    if (eletrodomestico == null) {
-                        System.out.println("Voltar para o Menu? S/N");
-                        confirmacao = sc.nextLine();
-                        if (confirmacao.equalsIgnoreCase("N")) {
-                            finalizar = true;
-                        }
-                    } else {
-                        System.out.println("Tem certeza que deseja remover: " + nomeProduto.toUpperCase() + "? S/N");
-                        confirmacao = sc.nextLine();
-                        eletrodomesticos.removeProduto(nomeProduto, confirmacao);
-                        System.out.println("Voltar para o menu? (S/N)");
-                        confirmacao = sc.nextLine();
-                        if (confirmacao.equalsIgnoreCase("N")) {
-                            finalizar = true;
-                        }
+                    produtoFiltrado = eletrodomesticos.filtraProduto(nomeProduto);
+                    if (produtoFiltrado.isPresent()) {
+                        System.out.println("Deseja remover o produto? S/N");
+                        String condicao = sc.nextLine();
+                        if (condicao.equalsIgnoreCase("s")) eletrodomesticos.removeProduto(produtoFiltrado.get());
+                    }
+                    if (!returnToMenu()) {
+                        finalizar = true;
                     }
                     break;
                 case 6:
@@ -130,5 +110,10 @@ public class Programa {
             }
         }
         sc.close();
+    }
+    private static boolean returnToMenu() {
+        System.out.println("Retornar para o Menu (S/N)?");
+        String confirmacao = sc.nextLine();
+        return confirmacao.equalsIgnoreCase("s");
     }
 }
