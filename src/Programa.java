@@ -37,7 +37,7 @@ public class Programa {
 
     private static void clienteArea() {
         System.out.println("----AREA DO CLIENTE-----");
-        System.out.println("1 - Comprar um produto");
+        System.out.println("1 - Comprar um produt");
         System.out.println("0 - Sair");
         int opcao = sc.nextInt();
         sc.nextLine();
