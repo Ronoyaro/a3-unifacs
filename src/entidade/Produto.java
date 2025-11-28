@@ -1,6 +1,14 @@
 package entidade;
 
-public class Produto {
+
+
+
+/**
+ * Nossa classe abstrata
+
+ * */
+
+public abstract class Produto {
     private static long contador = 0L;
     private long id;
     private String nome;
@@ -8,6 +16,9 @@ public class Produto {
     private Integer quantidade;
     private String categoria;
 
+    /**
+     * construtor da classe
+     * */
     public Produto(String nome, Double preco, Integer quantidade, String categoria) {
         this.id = ++contador;
         this.nome = nome;
@@ -16,6 +27,9 @@ public class Produto {
         this.categoria = categoria;
     }
 
+    /**
+     * métodos getters e setters
+     * */
     public String getNome() {
         return nome;
     }
@@ -51,6 +65,9 @@ public class Produto {
         this.categoria = categoria;
     }
 
+    /**
+     * toString da classe
+     * */
     @Override
     public String toString() {
         return "[" +
