@@ -93,7 +93,7 @@ public class Programa {
 
     private static void venderProduto() {
         eletrodomesticos.ordenarPorPreco();
-        System.out.println("Escolha o nome do produto");
+        System.out.println("Qual o nome do produto?");
         String nomeCompra = sc.nextLine();
         Optional<Eletrodomestico> produtoEmCompraEncontrado = eletrodomesticos.filtrarProduto(nomeCompra);
         produtoEmCompraEncontrado.ifPresent(p -> {
