@@ -1,8 +1,4 @@
 package entidade;
-
-
-
-
 /**
  * Nossa classe abstrata
 

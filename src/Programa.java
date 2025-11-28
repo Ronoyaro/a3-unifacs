@@ -103,6 +103,7 @@ public class Programa {
             if (quantidadeCompra <= p.getQuantidade()) {
                 p.setQuantidade(p.getQuantidade() - quantidadeCompra);
                 System.out.println("Você adquiriu " + quantidadeCompra + " " + p.getNome() + " com sucesso!");
+                return;
             }
             System.out.println("Quantidade não permitida");
         });
