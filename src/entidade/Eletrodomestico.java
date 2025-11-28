@@ -1,5 +1,8 @@
 package entidade;
 
+/**
+ * classe eletrodomestico que herda da classe abstrata produto
+ * */
 public class Eletrodomestico extends Produto {
     private String cor;
     private String marca;
@@ -9,7 +12,9 @@ public class Eletrodomestico extends Produto {
         this.cor = cor;
         this.marca = marca;
     }
-
+/**
+ * getters e setters
+ * */
     public String getCor() {
         return this.cor;
     }
@@ -25,6 +30,10 @@ public class Eletrodomestico extends Produto {
     public void setMarca(String marca) {
         this.marca = marca;
     }
+
+    /**
+     * toString de eletrodomestico
+     * */
 
     @Override
     public String toString() {
