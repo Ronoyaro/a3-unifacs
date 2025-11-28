@@ -38,7 +38,7 @@ public class ListaEletrodomesticos {
 
 
     /**
-     * metodo ordenaPorPreco lista os nossos produtos ordenados por preço, formatado pelo printf utilizando o loop for, e o metodo sort ordena os produtos por preço do menor para o maior
+     * metodo ordenaPorPreco lista os nossos produtos ordenados por preço, formatado pelo printf utilizando o loop for, e o metodo sort ordena os produtos por preço do menor para o maior.
      **/
     public void ordenarPorPreco() {
         eletrodomesticos.sort((e1, e2) -> e1.getPreco().compareTo(e2.getPreco()));
@@ -48,7 +48,7 @@ public class ListaEletrodomesticos {
         }
     }
 /**
- * atualiza lista de produtos é chamado quando a gente cadastra um produto novo
+ * atualiza lista de produtos é chamado quando a gente cadastra um produto novo.
  **/
     public void atualizarProdutos(Eletrodomestico eletrodomestico) {
         eletrodomesticos.add(eletrodomestico);
