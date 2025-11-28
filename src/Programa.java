@@ -13,6 +13,7 @@ public class Programa {
     public static Optional<Eletrodomestico> produtoFiltrado;
 
     public static void main(String[] args) {
+        System.out.println("Seja Bem-vindo!");
         while (!finalizar) {
             System.out.println("Escolha uma das opções a seguir:");
             System.out.println("1 - Cliente");
@@ -37,20 +38,12 @@ public class Programa {
 
     private static void clienteArea() {
         System.out.println("----AREA DO CLIENTE-----");
-        System.out.println("1 - Comprar um produt");
+        System.out.println("1 - Comprar um produto");
         System.out.println("0 - Sair");
         int opcao = sc.nextInt();
         sc.nextLine();
         if (opcao == 1) {
-            eletrodomesticos.ordenarPorPreco();
-            System.out.println("Escolha o nome do produto");
-            String nomeCompra = sc.nextLine();
-            Optional<Eletrodomestico> produtoEmCompraEncontrado = eletrodomesticos.filtrarProduto(nomeCompra);
-            System.out.println("Qual a quantidade desesejada?");
-            int quantidadeCompra = sc.nextInt();
-            sc.nextLine();
-            produtoEmCompraEncontrado.ifPresent(p -> p.setQuantidade(p.getQuantidade() - quantidadeCompra));
-            System.out.println("Você adquiriu " + quantidadeCompra + " " + nomeCompra + " com sucesso!");
+            venderProduto();
             return;
         }
         finalizar = true;
@@ -96,6 +89,25 @@ public class Programa {
                     System.out.println("Opção inválida!");
             }
         }
+    }
+
+    private static void venderProduto() {
+        eletrodomesticos.ordenarPorPreco();
+        System.out.println("Escolha o nome do produto");
+        String nomeCompra = sc.nextLine();
+        Optional<Eletrodomestico> produtoEmCompraEncontrado = eletrodomesticos.filtrarProduto(nomeCompra);
+        produtoEmCompraEncontrado.ifPresent(p -> {
+            System.out.println("Qual a quantidade desesejada?");
+            int quantidadeCompra = sc.nextInt();
+            sc.nextLine();
+            if (quantidadeCompra <= p.getQuantidade()) {
+                p.setQuantidade(p.getQuantidade() - quantidadeCompra);
+                System.out.println("Você adquiriu " + quantidadeCompra + " " + p.getNome() + " com sucesso!");
+            }
+            System.out.println("Quantidade não permitida");
+        });
+        clienteArea();
+
     }
 
     private static void cadastrarProduto() {
@@ -171,10 +183,6 @@ public class Programa {
             finalizar = true;
         }
     }
-
-
-    /**
-     * metodo de remoção do produto que chama a **/
 
     public static void removerProduto() {
         System.out.println("Informe o nome do produto que deseja remover:");
